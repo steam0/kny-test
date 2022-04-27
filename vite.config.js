@@ -13,16 +13,11 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      sass: {
-        additionalData: `
-              @import "./src/scss/custom";
-            `
-      },
       scss: {
         additionalData: `
-              @import "./src/scss/custom";
-            `
+        @import "./src/scss/custom";
+        `,
       },
-    }
-  }
-})
+    },
+  },
+});
