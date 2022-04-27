@@ -21,21 +21,10 @@ export default {
       },
       logout: () => {
         logout({ returnTo: window.location.origin });
-      }
+      },
     };
-  }
+  },
 };
 </script>
 
-<style lang="scss">
-$primary: #42b983;
-$body-color: #304455;
-$info:    #73abfe;
-$gray-100: #f6f6f6;
-$text-muted: #4e6e8e;
-$gray-900: #273849;
-$dark: #273849;
-
-@import "node_modules/bootstrap/scss/bootstrap";
-//@import "src/scss/custom";
-</style>
+<style lang="scss"></style>
