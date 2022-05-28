@@ -13,11 +13,11 @@
             <p>{{ machine.description }}</p>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <h2>{{ machine.description }}</h2>
-          </div>
-        </div>
+<!--        <div class="row">-->
+<!--          <div class="col">-->
+<!--            <h2>{{ machine.description }}</h2>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <div class="row">
           <Vue3Lottie v-if="machine.history[0].state === 'ON'" :animationData="runningAnimation" :height="350" />

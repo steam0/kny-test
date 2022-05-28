@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isAuthenticated && isLoading">
-    <img id="loading_logo" src="../assets/Desintrygg_symbol.svg" height="125" style="vertical-align:middle" alt="Loading"/>
+    <img id="loading_logo" src="./assets/Desintrygg_symbol.svg" height="125" style="vertical-align:middle" alt="Loading"/>
   </div>
   <div v-else>
     <div class="row">
@@ -45,6 +45,7 @@
 <script>
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useCustomerStore } from "./stores/CustomerStore";
+import startupAnimation from "./assets/StartUp_Animation_NO Loop.json";
 
 export default {
   setup() {
