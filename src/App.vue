@@ -1,8 +1,10 @@
 <template>
   <div v-if="!isAuthenticated && isLoading">
-    <img id="loading_logo" src="./assets/Desintrygg_symbol.svg" height="125" style="vertical-align:middle" alt="Loading"/>
+<!--    <img id="loading_logo" src="./assets/Desintrygg_symbol.svg" height="125" style="vertical-align:middle" alt="Loading"/>-->
+    <Vue3Lottie :animationData="startupAnimation" :height="350" />
   </div>
   <div v-else>
+<!--    <Vue3Lottie :animationData="startupAnimation" :height="350" />-->
     <div class="row">
       <RouterView />
     </div>
@@ -76,7 +78,8 @@ export default {
       user,
       isAuthenticated,
       loginWithRedirect,
-      userStore
+      userStore,
+      startupAnimation
     };
   },
   async mounted() {

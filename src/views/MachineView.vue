@@ -7,7 +7,7 @@
             <p>{{ machine.venue }}</p>
           </div>
           <div class="col-2">
-            <img src="../assets/Desintrygg_Loading_Final.svg" height="35" alt="My Happy SVG"/>
+            <img src="../assets/Desintrygg_Loading_Final.svg" height="35"/>
           </div>
           <div class="col-5">
             <p>{{ machine.description }}</p>
@@ -20,8 +20,8 @@
 <!--        </div>-->
 
         <div class="row">
-          <Vue3Lottie v-if="machine.history[0].state === 'ON'" :animationData="runningAnimation" :height="350" />
-          <Vue3Lottie v-else :animationData="idleAnimation" :height="350" />
+          <Vue3Lottie v-if="machine.history[0].state === 'ON'" :animationData="runningAnimation" />
+          <Vue3Lottie v-else :animationData="idleAnimation" />
         </div>
 
         <div class="row">
