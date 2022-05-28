@@ -9,7 +9,7 @@
       <RouterView />
     </div>
     <div class="row">
-      <nav class="navbar fixed-bottom navbar-secondary bg-secondary">
+      <nav class="navbar fixed-bottom navbar-secondary bg-light">
         <div class="container">
           <RouterLink to="/" style="text-decoration: none">
             <div class="row">

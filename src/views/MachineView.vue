@@ -17,7 +17,7 @@
             </div>
           </nav>
         </div>
-        
+
         <div class="row">
           <Vue3Lottie v-if="machine.history[0].state === 'ON'" :animationData="runningAnimation" />
           <Vue3Lottie v-else :animationData="idleAnimation" />
