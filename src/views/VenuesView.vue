@@ -1,15 +1,14 @@
 <template>
   <main>
     <div class="container">
+      <div class="row">
+        <h4>Venues</h4>
+      </div>
       <div v-if="isAuthenticated" class="row mt-3">
-<!--        {{ customerStore.venues }}-->
-
-        <div v-for="venue in customerStore.venues">
-          <div class="row mt-3">
-            <RouterLink :to="{ name: 'venue', params: { venueId: venue.venueId }}">
-              <button class="btn btn-primary">{{ venue.name }}</button>
+        <div class="btn-group-vertical" role="group">
+            <RouterLink v-for= "venue in customerStore.venues"  :to="{ name: 'venue', params: { venueId: venue.venueId }}" tag="button" class="btn btn-primary btn-lg">
+              {{ venue.name }}<span class="bi chevron-right"></span>
             </RouterLink>
-          </div>
         </div>
       </div>
     </div>

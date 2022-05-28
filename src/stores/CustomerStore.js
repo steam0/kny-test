@@ -12,7 +12,8 @@ export const useCustomerStore = defineStore("CustomerStore", {
             customer: {},
             user: {},
             venues: [],
-            selectedVenue: {}
+            selectedVenue: {},
+            machine: {}
         };
     },
 
@@ -40,18 +41,21 @@ export const useCustomerStore = defineStore("CustomerStore", {
                 return null
             }
         },
-        fetchMachine(venueId, machineId) {
-            if (this.venues != null) {
-                console.log(venueId)
-                let venue = this.venues.filter(venue => venue.venueId == venueId)[0]
-                console.log(venue)
-                console.log(machineId)
-                let machine = venue.machines.filter(machine => machine.machineId == machineId)[0]
-                console.log(machine)
-                return machine
-            } else {
-                return null
-            }
+        async fetchMachine(machineId, token) {
+            console.log("Fetching machine")
+            const { data } = await userdataApi.getMachine(machineId, token)
+            console.log(data)
+            this.machine = data
+
+            return this.machine
+        },
+        async turnMachineOn(machineId, token) {
+            const { data } = await userdataApi.changeMachineState(machineId, { state: "ON" }, token)
+            this.machine = data
+        },
+        async turnMachineOff(machineId, token) {
+            const { data } = await userdataApi.changeMachineState(machineId, { state: "OFF" }, token)
+            this.machine = data
         }
     }
 })
