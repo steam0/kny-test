@@ -3,7 +3,7 @@
     <div class="container">
       <div v-if="machine">
         <div class="row">
-          <nav class="navbar fixed-top navbar-light bg-light">
+          <nav class="navbar fixed-top navbar-light bg-white">
             <div class="container-fluid">
               <div class="col-5">
                 {{ machine.venue }}
