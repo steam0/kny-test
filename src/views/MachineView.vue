@@ -3,22 +3,21 @@
     <div class="container">
       <div v-if="machine">
         <div class="row">
-          <div class="col-5">
-            <p>{{ machine.venue }}</p>
-          </div>
-          <div class="col-2">
-            <img src="../assets/Desintrygg_Loading_Final.svg" height="35"/>
-          </div>
-          <div class="col-5">
-            <p>{{ machine.description }}</p>
-          </div>
+          <nav class="navbar fixed-top navbar-light bg-light">
+            <div class="container-fluid">
+              <div class="col-5">
+                {{ machine.venue }}
+              </div>
+              <div class="col-2">
+                <img src="../assets/Desintrygg_symbol.svg" height="35"/>
+              </div>
+              <div class="col-5">
+                {{ machine.description }}
+              </div>
+            </div>
+          </nav>
         </div>
-<!--        <div class="row">-->
-<!--          <div class="col">-->
-<!--            <h2>{{ machine.description }}</h2>-->
-<!--          </div>-->
-<!--        </div>-->
-
+        
         <div class="row">
           <Vue3Lottie v-if="machine.history[0].state === 'ON'" :animationData="runningAnimation" />
           <Vue3Lottie v-else :animationData="idleAnimation" />
