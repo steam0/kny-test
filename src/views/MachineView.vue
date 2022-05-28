@@ -42,7 +42,7 @@
               <div class="row mt-2">
                 <div class="col">
                   <ul class="list-group">
-                    <li v-for="historyElement in machine.history" class="list-group-item">
+                    <li v-for="historyElement in machine.history" class="list-group-item bg-light">
                       <div class="row">
                         <div class="col-3">
                           <p class="text-start"> {{ historyElement.state }}</p>
