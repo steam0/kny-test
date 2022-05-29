@@ -5,6 +5,7 @@ import ProfileView from '../views/ProfileView.vue';
 import VenuesView from "../views/VenuesView.vue";
 import VenueView from "../views/VenueView.vue";
 import MachineView from "../views/MachineView.vue";
+import ScheduleView from "../views/ScheduleView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,12 @@ const router = createRouter({
       path: '/venue/:venueId/machine/:machineId',
       name: 'machine',
       component: MachineView,
+      beforeEnter: authGuard
+    },
+    {
+      path: '/venue/:venueId/machine/:machineId/schedule',
+      name: 'schedule',
+      component: ScheduleView,
       beforeEnter: authGuard
     },
     {

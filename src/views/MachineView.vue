@@ -5,14 +5,14 @@
         <div class="row">
           <nav class="navbar fixed-top navbar-light bg-white">
             <div class="container-fluid">
-              <div class="col-5">
-                {{ machine.venue }}
+              <div class="col-2 text-start">
+                <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>
               </div>
-              <div class="col-2">
-                <img src="../assets/Desintrygg_symbol.svg" height="35"/>
-              </div>
-              <div class="col-5">
-                {{ machine.description }}
+              <div class="col-10 text-start text-nowrap">
+                <RouterLink :to="{ name: 'venue', params: { venueId: this.$route.params.venueId }}" class="text-decoration-none">
+                  {{ machine.venue }}
+                </RouterLink>
+                <em class="bi bi-chevron-right" /> {{ machine.description }}
               </div>
             </div>
           </nav>
@@ -25,8 +25,22 @@
 
         <div class="row">
           <div class="col">
-            <button v-if="machine.history[0].state === 'OFF'" class="btn col-12 btn-primary" @click="turnOn">Turn on</button>
-            <button v-else class="btn col-12 btn-primary" @click="turnOff">Turn off</button>
+            <button v-if="machine.history[0].state === 'OFF'" class="btn col-12 btn-primary" :disabled="changeStateLoading" @click="turnOn">
+              <span v-if="changeStateLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span v-else>Turn on</span>
+            </button>
+            <button v-else class="btn col-12 btn-primary" :disabled="changeStateLoading" @click="turnOff">
+              <span v-if="changeStateLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span v-else>Turn off</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col">
+            <RouterLink :to="{ name: 'schedule', params: { venueId: this.$route.params.venueId,  machineId: machine.machineId }}" tag="button" class="btn col-12 btn-primary">
+              Schedule
+            </RouterLink>
           </div>
         </div>
 
@@ -59,6 +73,11 @@
           </div>
         </div>
       </div>
+      <div v-else>
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
     </div>
   </main>
 </template>
@@ -88,59 +107,45 @@ export default {
   data() {
     return {
       machine: null,
-      machineId: null
+      machineId: null,
+      changeStateLoading: false,
+      loader: null
     }
   },
   mounted() {
     this.machineId = this.$route.params.machineId
     this.getMachine()
+
+    this.loader = setInterval(this.getMachine,5000);
+  },
+  beforeUnmount() {
+    clearInterval(this.loader);
   },
   methods: {
     async getMachine() {
-      console.log("Get machine")
       const token = await this.getAccessTokenSilently()
       const { data } = await userdataApi.getMachine(this.machineId, token)
       this.machine = data
     },
+
     async turnOn() {
-      console.log("Turn on")
-      console.log(this.machineId)
+      this.changeStateLoading = true;
       const token = await this.getAccessTokenSilently()
       const { data } = await userdataApi.changeMachineState(this.machineId, { state: "ON" }, token)
       this.machine = data
+      this.changeStateLoading = false;
     },
+
     async turnOff() {
-      console.log("Turn off")
-      console.log(this.machineId)
+      this.changeStateLoading = true;
       const token = await this.getAccessTokenSilently()
       const { data } = await userdataApi.changeMachineState(this.machineId, { state: "OFF" }, token)
       this.machine = data
+      this.changeStateLoading = false;
     },
-    getBadgeStyle(state) {
-      if (state === "ON") {
-        return "badge rounded-pill bg-success"
-      } else if (state === "OFF") {
-        return "badge rounded-pill bg-danger"
-      } else if (state === "COOLING_DOWN") {
-        return "badge rounded-pill bg-warning"
-      } else {
-        return "badge rounded-pill bg-light"
-      }
-    },
-    getBadgeName(state) {
-      if (state === "ON") {
-        return "  Running  "
-      } else if (state === "OFF") {
-        return "Turned off"
-      } else if (state === "COOLING_DOWN") {
-        return "Cooling"
-      } else {
-        return "Unknown"
-      }
-    },
+
     getTimestampFormat(dateTimeString) {
       const date = dayjs(dateTimeString)
-
       return date.format("HH:mm:ss DD.M.YYYY")
     }
   }

@@ -2,7 +2,16 @@
   <main>
     <div class="container">
       <div class="row">
-        <h4>Venues</h4>
+        <nav class="navbar fixed-top navbar-light bg-white">
+          <div class="container-fluid">
+            <div class="col-2 text-start">
+              <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>
+            </div>
+            <div class="col-10 text-start">
+              Venues
+            </div>
+          </div>
+        </nav>
       </div>
       <div v-if="isAuthenticated" class="row mt-3">
         <div class="btn-group-vertical" role="group">
@@ -27,15 +36,8 @@ export default {
     return {
       isAuthenticated,
       getAccessTokenSilently,
-      customerStore,
-      async fetchVenues() {
-        const token = await this.getAccessTokenSilently()
-        customerStore.fetchVenues(token)
-      },
+      customerStore
     };
-  },
-  mounted() {
-    this.fetchVenues()
   }
 };
 </script>

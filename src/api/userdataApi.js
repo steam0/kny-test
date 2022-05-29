@@ -40,4 +40,20 @@ export default {
             }
         });
     },
+
+    async saveSchedule(id, saveScheduleRequest, token) {
+        return axios.post("/api/userdata/machine/"+id+"/schedule", saveScheduleRequest, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    },
+
+    async deleteSchedule(id, token) {
+        return axios.delete("/api/userdata/machine/"+id+"/schedule", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    },
 }

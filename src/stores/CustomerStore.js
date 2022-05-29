@@ -25,6 +25,7 @@ export const useCustomerStore = defineStore("CustomerStore", {
                 this.name = response.data.customer.name;
                 this.orgnr = response.data.customer.orgnr;
                 this.email = response.data.customer.email;
+                this.venues = response.data.venues;
                 this.customer = response.data.customer
                 this.phoneNumber = response.data.customer.phoneNumber;
             })
@@ -42,12 +43,8 @@ export const useCustomerStore = defineStore("CustomerStore", {
             }
         },
         async fetchMachine(machineId, token) {
-            console.log("Fetching machine")
             const { data } = await userdataApi.getMachine(machineId, token)
-            console.log(data)
             this.machine = data
-
-            return this.machine
         },
         async turnMachineOn(machineId, token) {
             const { data } = await userdataApi.changeMachineState(machineId, { state: "ON" }, token)

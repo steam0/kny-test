@@ -2,7 +2,19 @@
   <main>
     <div class="container">
       <div class="row">
-        <h4>Machines</h4>
+        <nav class="navbar fixed-top navbar-light bg-white">
+          <div class="container-fluid">
+            <div class="col-2 text-start">
+              <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>
+            </div>
+            <div v-if="venue" class="col-10 text-start">
+              <RouterLink :to="{ name: 'venues'}" class="text-decoration-none">
+                Venues
+              </RouterLink>
+              <em class="bi bi-chevron-right"/> {{ venue.name }}
+            </div>
+          </div>
+        </nav>
       </div>
       <div v-if="venue" class="row mt-3">
         <div class="btn-group-vertical" role="group">

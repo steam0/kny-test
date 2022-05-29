@@ -1,32 +1,32 @@
 <template>
   <main>
     <div class="container">
-      <pre v-if="isAuthenticated">
+      <div class="row">
+        <nav class="navbar fixed-top navbar-light bg-white">
+          <div class="container-fluid">
+            <div class="col-2 text-start">
+              <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>
+            </div>
+            <div class="col-10 text-start text-nowrap">
+              Profile <em class="bi bi-chevron-right" />
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div v-if="isAuthenticated">
         <div class="row">
           <div class="col">
-            <div class="card">
+            <div class="card bg-light">
               <div class="card-body">
-                <div class="input-group">
-                  <span class="input-group-text">Name  </span>
-                  <input type="text" class="form-control" placeholder="Name" aria-label="Name" v-model="customerStore.name" disabled>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">Orgnr</span>
-                  <input type="text" class="form-control" placeholder="Orgnr" aria-label="Orgnr" v-model="customerStore.orgnr" disabled>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">Email</span>
-                  <input type="text" class="form-control" placeholder="Email" aria-label="Email" v-model="customerStore.email" disabled>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">Phone</span>
-                  <input type="text" class="form-control" placeholder="Phone" aria-label="Phone" v-model="customerStore.phoneNumber" disabled>
-                </div>
+                <p class="fw-bold">{{customerStore.name}}</p>
+                <p>{{customerStore.orgnr}}</p>
+                <p>{{customerStore.phoneNumber}}</p>
+                <p>{{customerStore.email}}</p>
               </div>
             </div>
           </div>
         </div>
-      </pre>
+      </div>
       <div class="row mt-3">
         <div class="col">
           <a href="mailto:kontakt@desintrygg.no" target="_blank" class="btn col-12 btn-outline-primary">Contact us</a>
@@ -34,7 +34,7 @@
       </div>
       <div class="row mt-3">
         <div class="col">
-          <button class="btn col-12 btn-outline-primary" @click="logout">Log out</button>
+          <button class="btn col-12 btn-outline-danger" @click="logout">Log out</button>
         </div>
       </div>
     </div>

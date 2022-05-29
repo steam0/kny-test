@@ -1,10 +1,5 @@
 <template>
-  <div v-if="!isAuthenticated && isLoading">
-<!--    <img id="loading_logo" src="./assets/Desintrygg_symbol.svg" height="125" style="vertical-align:middle" alt="Loading"/>-->
-    <Vue3Lottie :animationData="startupAnimation" :height="350" />
-  </div>
-  <div v-else>
-<!--    <Vue3Lottie :animationData="startupAnimation" :height="350" />-->
+  <div>
     <div class="row">
       <RouterView />
     </div>
@@ -56,7 +51,6 @@ export default {
 
     return {
       async fetchCustomerDetails() {
-        console.log(isAuthenticated.value)
         if (isAuthenticated.value) {
           const token = await getAccessTokenSilently();
           userStore.fetchCustomerDetails(token)
@@ -65,9 +59,7 @@ export default {
       async login() {
         loginWithRedirect();
 
-        console.log("HELLO")
         if (isAuthenticated.value) {
-          console.log("DONE DONE DONE")
           this.fetchCustomerDetails()
         }
       },
@@ -83,13 +75,17 @@ export default {
     };
   },
   async mounted() {
-    console.log("Mounted")
-    console.log(this.isAuthenticated)
-
-    if (this.isAuthenticated) {
-      this.fetchCustomerDetails()
+    if (this.isLoading === true) {
+      // Watch for the loading property to change before we check isAuthenticated
+      this.$watch("isLoading", loading => {
+        if (loading === false) {
+          if (this.isAuthenticated) {
+            this.fetchCustomerDetails()
+          }
+        }
+      });
     } else {
-      // this.login()
+      this.fetchCustomerDetails()
     }
   }
 }
@@ -110,7 +106,7 @@ export default {
 }
 
 #loading_logo {
-  transform-origin: 50% 59%;
+  transform-origin: 50% 50%;
   animation: spin 0.9s ease-in infinite;
 }
 </style>
