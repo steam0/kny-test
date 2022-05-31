@@ -12,15 +12,20 @@
                 <RouterLink :to="{ name: 'venue', params: { venueId: this.$route.params.venueId }}" class="text-decoration-none">
                   {{ machine.venue }}
                 </RouterLink>
-                <em class="bi bi-chevron-right" /> {{ machine.description }}
+                <em class="bi bi-chevron-right" /> <span class="fw-bold">{{ machine.description }}</span>
               </div>
             </div>
           </nav>
         </div>
 
         <div class="row">
-          <Vue3Lottie v-if="machine.history[0].state === 'ON'" :animationData="runningAnimation" />
-          <Vue3Lottie v-else :animationData="idleAnimation" />
+          <div v-if="machine.history[0].state === 'ON'">
+            <Vue3Lottie :animationData="runningAnimation" />
+          </div>
+          <div v-else>
+            <Vue3Lottie v-if="offAnimation === 1" :animationData="startupAnimation" :loop="false" @onComplete="offAnimation = 2" />
+            <Vue3Lottie v-if="offAnimation === 2" :animationData="restAnimation" :loop="true" />
+          </div>
         </div>
 
         <div class="row">
@@ -50,7 +55,7 @@
           </div>
         </div>
 
-        <div class="row mt-2">
+        <div class="row mt-3">
           <div class="col">
             <div class="collapse" id="eventLog">
               <div class="row mt-2">
@@ -59,10 +64,10 @@
                     <li v-for="historyElement in machine.history" class="list-group-item bg-light">
                       <div class="row">
                         <div class="col-3">
-                          <p class="text-start"> {{ historyElement.state }}</p>
+                          <p class="text-start fw-bold"> {{ historyElement.state }}</p>
                         </div>
                         <div class="col-9">
-                          <p class="text-end">{{ getTimestampFormat(historyElement.timestamp) }}</p>
+                          <p class="text-end">{{ getTimeFormat(historyElement.timestamp) }} <span class="fw-bold">{{ getDateFormat(historyElement.timestamp) }}</span></p>
                         </div>
                       </div>
                     </li>
@@ -87,7 +92,9 @@ import { useAuth0 } from "@auth0/auth0-vue";
 import { useCustomerStore } from "@/stores/CustomerStore";
 import desinfectingAnimation from "../assets/DisinfectionInProgress_Loop.json";
 import runningAnimation from "../assets/Healthy_Room_NO Loop.json";
+import startupAnimation from "../assets/StartUp_Animation_NO Loop.json";
 import idleAnimation from "../assets/Room_OK_NO Loop.json";
+import restAnimation from "../assets/Rest_animation_Loop.json";
 import userdataApi from "../api/userdataApi";
 import dayjs from "dayjs/dayjs.min"
 
@@ -101,6 +108,8 @@ export default {
       desinfectingAnimation,
       idleAnimation,
       runningAnimation,
+      startupAnimation,
+      restAnimation,
       getAccessTokenSilently
     };
   },
@@ -109,13 +118,16 @@ export default {
       machine: null,
       machineId: null,
       changeStateLoading: false,
-      loader: null
+      loader: null,
+      offAnimation: 1,
+      animations: []
     }
   },
-  mounted() {
+  async mounted() {
+    localStorage.setItem("venueId", this.$route.params.venueId);
+    localStorage.setItem("machineId", this.$route.params.machineId);
     this.machineId = this.$route.params.machineId
-    this.getMachine()
-
+    await this.getMachine();
     this.loader = setInterval(this.getMachine,5000);
   },
   beforeUnmount() {
@@ -138,15 +150,21 @@ export default {
 
     async turnOff() {
       this.changeStateLoading = true;
+      this.offAnimation = 1; // Restart animations
       const token = await this.getAccessTokenSilently()
       const { data } = await userdataApi.changeMachineState(this.machineId, { state: "OFF" }, token)
       this.machine = data
       this.changeStateLoading = false;
     },
 
-    getTimestampFormat(dateTimeString) {
+    getTimeFormat(dateTimeString) {
       const date = dayjs(dateTimeString)
-      return date.format("HH:mm:ss DD.M.YYYY")
+      return date.format("HH:mm:ss")
+    },
+
+    getDateFormat(dateTimeString) {
+      const date = dayjs(dateTimeString)
+      return date.format("DD.M.YYYY")
     }
   }
 };

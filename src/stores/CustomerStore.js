@@ -32,12 +32,13 @@ export const useCustomerStore = defineStore("CustomerStore", {
         },
         fetchVenues(token) {
             userdataApi.getVenues(token).then(response => {
-                this.venues = response.data
+                this.venues = response.data;
             })
         },
         fetchVenue(venueId) {
             if (this.venues != null) {
-                return this.venues.filter(venue => venue.venueId == venueId)[0]
+                this.selectedVenue = this.venues.filter(venue => venue.venueId == venueId)[0];
+                return this.selectedVenue;
             } else {
                 return null
             }

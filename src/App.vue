@@ -9,27 +9,26 @@
           <RouterLink to="/" style="text-decoration: none">
             <div class="row">
               <div class="col ml-3">
-                <h4><em class="bi bi-house-heart"></em></h4>
-  <!--              <img src="./assets/Hjem_Blaa.svg" height="28" style="vertical-align:middle" alt="Loading"/>-->
-                <p>Home</p>
+                <div class="row">
+                  <h3><em class="bi bi-house"></em></h3>
+                </div>
+                <span>Home</span>
               </div>
             </div>
           </RouterLink>
           <RouterLink to="/venues" style="text-decoration: none">
             <div class="row">
               <div class="col">
-                <h4><em class="bi bi-geo-alt"></em></h4>
-  <!--              <img src="./assets/Lokasjon_Blaa.svg" height="28" style="vertical-align:middle" alt="Loading"/>-->
-                <p>Venues</p>
+                <h3><em class="bi bi-geo-alt"></em></h3>
+                <span>Venues</span>
               </div>
             </div>
           </RouterLink>
           <RouterLink to="/profile" style="text-decoration: none">
             <div class="row">
               <div class="col mr-3">
-                <h4><em class="bi bi-gear"></em></h4>
-  <!--              <img src="./assets/Innstillinger_Blaa.svg" height="28" style="vertical-align:middle" alt="Loading"/>-->
-                <p>Settings</p>
+                <h3><em class="bi bi-gear"></em></h3>
+                <span>Settings</span>
               </div>
             </div>
           </RouterLink>
@@ -42,7 +41,6 @@
 <script>
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useCustomerStore } from "./stores/CustomerStore";
-import startupAnimation from "./assets/StartUp_Animation_NO Loop.json";
 
 export default {
   setup() {
@@ -70,8 +68,7 @@ export default {
       user,
       isAuthenticated,
       loginWithRedirect,
-      userStore,
-      startupAnimation
+      userStore
     };
   },
   async mounted() {

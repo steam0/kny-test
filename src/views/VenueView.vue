@@ -7,18 +7,18 @@
             <div class="col-2 text-start">
               <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>
             </div>
-            <div v-if="venue" class="col-10 text-start">
+            <div v-if="customerStore.selectedVenue" class="col-10 text-start">
               <RouterLink :to="{ name: 'venues'}" class="text-decoration-none">
                 Venues
               </RouterLink>
-              <em class="bi bi-chevron-right"/> {{ venue.name }}
+              <em class="bi bi-chevron-right"/> {{ customerStore.selectedVenue.name }}
             </div>
           </div>
         </nav>
       </div>
-      <div v-if="venue" class="row mt-3">
+      <div v-if="customerStore.selectedVenue" class="row mt-3">
         <div class="btn-group-vertical" role="group">
-          <RouterLink v-for= "machine in venue.machines"  :to="{ name: 'machine', params: { venueId: this.$route.params.venueId,  machineId: machine.machineId }}" tag="button" class="btn btn-primary btn-lg">
+          <RouterLink v-for= "machine in customerStore.selectedVenue.machines"  :to="{ name: 'machine', params: { venueId: this.$route.params.venueId,  machineId: machine.machineId }}" tag="button" class="btn btn-primary btn-lg">
             {{ machine.description }}
           </RouterLink>
         </div>
@@ -37,10 +37,8 @@ export default {
       customerStore
     };
   },
-  computed: {
-    venue() {
-      return this.customerStore.fetchVenue(this.$route.params.venueId)
-    }
+  mounted() {
+    this.customerStore.fetchVenue(this.$route.params.venueId)
   }
 };
 </script>
