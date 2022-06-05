@@ -2,7 +2,7 @@
   <main>
     <div class="container">
       <div class="row">
-        <nav class="navbar fixed-top navbar-light bg-white">
+        <nav class="navbar fixed-top navbar-light bg-white"  style="font-size: 0.8rem">
           <div class="container-fluid">
             <div class="col-2 text-start">
               <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>

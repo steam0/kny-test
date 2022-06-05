@@ -3,7 +3,7 @@
     <div class="container">
       <div v-if="machine">
         <div class="row">
-          <nav class="navbar fixed-top navbar-light bg-white">
+          <nav class="navbar fixed-top navbar-light bg-white" style="font-size: 0.8rem">
             <div class="container-fluid">
               <div class="col-2 text-start">
                 <img src="../assets/Desintrygg_symbol.svg" height="35" alt="Logo"/>
@@ -18,9 +18,9 @@
           </nav>
         </div>
 
-        <div class="row">
+        <div class="row mt-5">
           <div v-if="machine.history[0].state === 'ON'">
-            <Vue3Lottie :animationData="runningAnimation" />
+            <Vue3Lottie :animationData="disinfectingAnimation" />
           </div>
           <div v-else>
             <Vue3Lottie v-if="offAnimation === 1" :animationData="startupAnimation" :loop="false" @onComplete="offAnimation = 2" />
@@ -90,7 +90,7 @@
 <script>
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useCustomerStore } from "@/stores/CustomerStore";
-import desinfectingAnimation from "../assets/DisinfectionInProgress_Loop.json";
+import disinfectingAnimation from "../assets/disinfecting.json";
 import runningAnimation from "../assets/Healthy_Room_NO Loop.json";
 import startupAnimation from "../assets/StartUp_Animation_NO Loop.json";
 import idleAnimation from "../assets/Room_OK_NO Loop.json";
@@ -105,7 +105,7 @@ export default {
 
     return {
       customerStore,
-      desinfectingAnimation,
+      disinfectingAnimation,
       idleAnimation,
       runningAnimation,
       startupAnimation,

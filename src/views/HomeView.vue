@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <div class="position-absolute top-50 start-50 translate-middle">
+      <div class="position-absolute top-50 start-50 translate-middle" style="font-size: 0.8rem">
         <div class="row">
           <div class="col">
             <img src="../assets/logo.svg" height="50" alt="Logo"/>
